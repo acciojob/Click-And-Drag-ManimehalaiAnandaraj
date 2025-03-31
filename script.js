@@ -1,32 +1,16 @@
 // Your code here.
   document.addEventListener('DOMContentLoaded', function() {
             const container = document.querySelector('.items');
-            const cubeCount = 16; // You can change this number
-            
-            // Create cubes in a grid formation
-            for (let i = 0; i < cubeCount; i++) {
-                const cube = document.createElement('div');
-                cube.className = 'cube';
-                cube.textContent = i + 1;
+           
                 
-                // Calculate grid position (4 columns)
-                const row = Math.floor(i / 4);
-                const col = i % 4;
-                
-                // Position cubes with some spacing
-                cube.style.left = `${50 + col * 110}px`;
-                cube.style.top = `${50 + row * 110}px`;
-                
-                container.appendChild(cube);
-            }
-            
+             
             // Drag functionality
             let currentDraggedCube = null;
             let offsetX = 0;
             let offsetY = 0;
             
             container.addEventListener('mousedown', function(e) {
-                if (e.target.classList.contains('cube')) {
+                if (e.target.classList.contains('item')) {
                     currentDraggedCube = e.target;
                     currentDraggedCube.classList.add('dragging');
                     
