@@ -21,64 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Dragging functionality
   let isDragging = false;
-  let currentCube = null;
-  let startX, startY, initialX, initialY;
+  let startX, scrollLeft;
 
-  cubes.forEach(cube => {
-    cube.addEventListener('mousedown', startDrag);
+  container.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX;
+    scrollLeft = container.scrollLeft;
   });
 
-  function startDrag(e) {
-    isDragging = true;
-    currentCube = e.target;
-    currentCube.classList.add('dragging');
-    
-    // Get initial positions
-    startX = e.clientX;
-    startY = e.clientY;
-    initialX = currentCube.offsetLeft;
-    initialY = currentCube.offsetTop;
-    
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', stopDrag);
-  }
+  container.addEventListener('mousemove', (e) => {
+    if(!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX;
+    const walk = (x - startX);
+    container.scrollLeft = scrollLeft - walk;
+  });
 
-  function drag(e) {
-    if (!isDragging) return;
-    
-    // Calculate new position
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    
-    currentCube.style.left = `${initialX + dx}px`;
-    currentCube.style.top = `${initialY + dy}px`;
-  }
-
-  function stopDrag(e) {
-    if (!isDragging) return;
-    
-    isDragging = false;
-    currentCube.classList.remove('dragging');
-    
-    // Check boundaries and snap back if needed
-    const cubeRect = currentCube.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    
-    if (
-      cubeRect.left < containerRect.left ||
-      cubeRect.right > containerRect.right ||
-      cubeRect.top < containerRect.top ||
-      cubeRect.bottom > containerRect.bottom
-    ) {
-      // Snap back to initial position
-      currentCube.style.left = `${initialX}px`;
-      currentCube.style.top = `${initialY}px`;
-    }
-    
-    document.removeEventListener('mousemove', drag);
-    document.removeEventListener('mouseup', stopDrag);
-    currentCube = null;
-  }
+  container.addEventListener('mouseup', () => isDragging = false);
+  container.addEventListener('mouseleave', () => isDragging = false);
 
   // Initialize the cubes
   initializeCubes();
