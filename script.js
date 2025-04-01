@@ -1,6 +1,6 @@
 // Your code here.
   document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelector('.items'); 
+            const container = document.querySelector('items'); 
              
             // Drag functionality
             let currentDraggedCube = null;
