@@ -1,5 +1,5 @@
 // Your code here.
-  const items = document.querySelectorAll('.item');
+  const items = document.querySelectorAll('.items');
 
 // Loop through each item
 items.forEach(item => {
