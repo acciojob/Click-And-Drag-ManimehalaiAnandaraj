@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentCube.classList.remove('dragging');
     
     // Check boundaries and snap back if needed
-    const cubeRect = currentCube.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
+    const cubeRect = items.getBoundingClientRect();
+    const containerRect = items.getBoundingClientRect();
     
     if (
       cubeRect.left < containerRect.left ||
