@@ -1,6 +1,6 @@
 // Your code here.
   const items = document.querySelectorAll('.item');
-
+  const container = document.querySelector('.items');
 // Loop through each item
 items.forEach(item => {
   // Initialize position variables
