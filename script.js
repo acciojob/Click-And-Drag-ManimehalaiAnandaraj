@@ -1,51 +1,44 @@
 // Your code here.
-  document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelectorAll('.items'); 
-             
-            // Drag functionality
-            let currentDraggedCube = null;
-            let offsetX = 0;
-            let offsetY = 0;
-            
-            container.addEventListener('mousedown', function(e) {
-                if (e.target.classList.contains('item')) {
-                    currentDraggedCube = e.target;
-                    currentDraggedCube.classList.add('dragging');
-                    
-                    // Calculate offset between mouse and cube top-left corner
-                    const rect = currentDraggedCube.getBoundingClientRect();
-                    offsetX = e.clientX - rect.left;
-                    offsetY = e.clientY - rect.top;
-                    
-                    // Prevent text selection during drag
-                    e.preventDefault();
-                }
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-                if (currentDraggedCube) {
-                    // Calculate new position
-                    let newX = e.clientX - offsetX - container.getBoundingClientRect().left;
-                    let newY = e.clientY - offsetY - container.getBoundingClientRect().top;
-                    
-                    // Apply boundary constraints
-                    const containerRect = container.getBoundingClientRect();
-                    const cubeWidth = currentDraggedCube.offsetWidth;
-                    const cubeHeight = currentDraggedCube.offsetHeight;
-                    
-                    newX = Math.max(0, Math.min(newX, containerRect.width - cubeWidth));
-                    newY = Math.max(0, Math.min(newY, containerRect.height - cubeHeight));
-                    
-                    // Update position
-                    currentDraggedCube.style.left = `${newX}px`;
-                    currentDraggedCube.style.top = `${newY}px`;
-                }
-            });
-            
-            document.addEventListener('mouseup', function() {
-                if (currentDraggedCube) {
-                    currentDraggedCube.classList.remove('dragging');
-                    currentDraggedCube = null;
-                }
-            });
-        });
+  const items = document.querySelectorAll('.item');
+
+// Loop through each item
+items.forEach(item => {
+  // Initialize position variables
+  let mouseX = 0;
+  let mouseY = 0;
+  let itemX = 0;
+  let itemY = 0;
+  let isDragging = false;
+
+  // Mouse down event
+  item.addEventListener('mousedown', (e) => {
+    isDragging = true;
+
+    // Get the initial mouse position
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Get the initial item position
+    let rect = item.getBoundingClientRect();
+    itemX = rect.left;
+    itemY = rect.top;
+  });
+
+  // Mouse move event
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    // Calculate the new position
+    const dx = e.clientX - mouseX;
+    const dy = e.clientY - mouseY;
+
+    // Update the item position
+    item.style.left = `${itemX + dx}px`;
+    item.style.top = `${itemY + dy}px`;
+  });
+
+  // Mouse up event
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+});
