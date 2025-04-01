@@ -1,47 +1,85 @@
-// Your code here.
-  const items = document.querySelectorAll('.item');
-console.log(document.querySelector('.items').scrollLeft)
+document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.items');
-
-// Loop through each item
-items.forEach(item => {
-  // Initialize position variables
-let mouseX, mouseY, itemX, itemY;
-  let isDragging = false;
-
-  // Mouse down event
-  item.addEventListener('mousedown', (e) => {
-    isDragging = true;
-	  mouseX = e.clientX;
-    mouseY = e.clientY;
-    itemX = item.offsetLeft;
-    itemY = item.offsetTop;
-  });
-
+  const cubes = document.querySelectorAll('.item');
+  
+  // Initialize cube positions in a grid
+  function initializeCubes() {
+    const containerWidth = container.offsetWidth;
+    const cubeSize = 80;
+    const gap = 20;
+    const cubesPerRow = Math.floor((containerWidth - gap) / (cubeSize + gap));
     
-  // Mouse move event
-  document.addEventListener('mousemove', (e) => {
+    cubes.forEach((cube, index) => {
+      const row = Math.floor(index / cubesPerRow);
+      const col = index % cubesPerRow;
+      
+      cube.style.left = `${gap + col * (cubeSize + gap)}px`;
+      cube.style.top = `${gap + row * (cubeSize + gap)}px`;
+      cube.textContent = index + 1; // Number the cubes
+    });
+  }
+
+  // Dragging functionality
+  let isDragging = false;
+  let currentCube = null;
+  let startX, startY, initialX, initialY;
+
+  cubes.forEach(cube => {
+    cube.addEventListener('mousedown', startDrag);
+  });
+
+  function startDrag(e) {
+    isDragging = true;
+    currentCube = e.target;
+    currentCube.classList.add('dragging');
+    
+    // Get initial positions
+    startX = e.clientX;
+    startY = e.clientY;
+    initialX = currentCube.offsetLeft;
+    initialY = currentCube.offsetTop;
+    
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDrag);
+  }
+
+  function drag(e) {
     if (!isDragging) return;
+    
+    // Calculate new position
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    
+    currentCube.style.left = `${initialX + dx}px`;
+    currentCube.style.top = `${initialY + dy}px`;
+  }
 
-    // Calculate the new position
-    const dx = e.clientX - mouseX;
-    const dy = e.clientY - mouseY;
-	      let newX = itemX + dx;
-    let newY = itemY + dy;
-
-
-   // Boundary checking
-    const rect = container.getBoundingClientRect();
-    const itemWidth = item.offsetWidth;
-    const itemHeight = item.offsetHeight;
-    newX = Math.max(0, Math.min(newX, rect.width - itemWidth));
-    newY = Math.max(0, Math.min(newY, rect.height - itemHeight));
-
-    item.style.left = `${newX}px`;
-    item.style.top = `${newY}px`;
-  });
-  // Mouse up event
-  document.addEventListener('mouseup', () => {
+  function stopDrag(e) {
+    if (!isDragging) return;
+    
     isDragging = false;
-  });
+    currentCube.classList.remove('dragging');
+    
+    // Check boundaries and snap back if needed
+    const cubeRect = currentCube.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    
+    if (
+      cubeRect.left < containerRect.left ||
+      cubeRect.right > containerRect.right ||
+      cubeRect.top < containerRect.top ||
+      cubeRect.bottom > containerRect.bottom
+    ) {
+      // Snap back to initial position
+      currentCube.style.left = `${initialX}px`;
+      currentCube.style.top = `${initialY}px`;
+    }
+    
+    document.removeEventListener('mousemove', drag);
+    document.removeEventListener('mouseup', stopDrag);
+    currentCube = null;
+  }
+
+  // Initialize the cubes
+  initializeCubes();
 });
