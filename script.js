@@ -4,10 +4,7 @@
 // Loop through each item
 items.forEach(item => {
   // Initialize position variables
-  let mouseX = 0;
-  let mouseY = 0;
-  let itemX = 0;
-  let itemY = 0;
+let mouseX, mouseY, itemX, itemY;
   let isDragging = false;
 
   // Mouse down event
