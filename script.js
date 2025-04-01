@@ -1,6 +1,6 @@
 // Your code here.
   const items = document.querySelectorAll('.item');
-//console.log(document.querySelector('.items').scrollLeft)
+console.log(document.querySelector('.items').scrollLeft)
   const container = document.querySelector('.items');
 
 // Loop through each item
