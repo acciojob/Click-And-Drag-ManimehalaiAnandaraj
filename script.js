@@ -16,16 +16,7 @@ let mouseX, mouseY, itemX, itemY;
     itemY = item.offsetTop;
   });
 
-    // Get the initial mouse position
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    // Get the initial item position
-    let rect = item.getBoundingClientRect();
-    itemX = rect.left;
-    itemY = rect.top;
-  });
-
+    
   // Mouse move event
   document.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
