@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize cube positions in a grid
   function initializeCubes() {
     const containerWidth = container.offsetWidth;
-    const cubeSize = 80;
+    const cubeSize = 25;
     const gap = 20;
     const cubesPerRow = Math.floor((containerWidth - gap) / (cubeSize + gap));
     
