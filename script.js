@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize cube positions in a grid
   function initializeCubes() {
+	  container.style.width="800px";
+	  container.style.height="600px";
     const containerWidth = container.offsetWidth;
     const cubeSize = 25;
     const gap = 20;
