@@ -33,5 +33,5 @@ margin:20px;
 .item.dragging {
   opacity: 0.8;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  z-index: 100;
+  z-index: 25;
 }
