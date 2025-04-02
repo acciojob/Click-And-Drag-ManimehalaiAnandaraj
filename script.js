@@ -64,6 +64,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const cubeRect = currentCube.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
     
+    if (
+      cubeRect.left < containerRect.left ||
+      cubeRect.right > containerRect.right ||
+      cubeRect.top < containerRect.top ||
+      cubeRect.bottom > containerRect.bottom
+    ) {
+      // Snap back to initial position
+      currentCube.style.left = `${initialX}px`;
+      currentCube.style.top = `${initialY}px`;
+		 currentCube.style.right = `${initialX}px`;
+      currentCube.style.bottom = `${initialY}px`;
+    }
     
     document.removeEventListener('mousemove', drag);
     document.removeEventListener('mouseup', stopDrag);
