@@ -73,8 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Snap back to initial position
       currentCube.style.left = `${initialX}px`;
       currentCube.style.top = `${initialY}px`;
-		 currentCube.style.right = `${initialX}px`;
-      currentCube.style.bottom = `${initialY}px`;
     }
     
     document.removeEventListener('mousemove', drag);
