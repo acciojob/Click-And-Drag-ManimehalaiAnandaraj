@@ -17,11 +17,11 @@ body {
 .item {
 		display:flex;
 	flex-direction:column;
-  width: 200px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   background-color: #3498db;
   position: absolute;
-  border-radius: 100px;
+  border-radius: 8px;
   cursor: move;
   transition: all 0.2s ease;
   justify-content: center;
