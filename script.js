@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = Math.floor(index / cubesPerRow);
       const col = index % cubesPerRow;
       
-      cube.style.left = `${gap + col * (cubeSize + gap)}%`;
-      cube.style.top = `${gap + row * (cubeSize + gap)}%`;
+      cube.style.left = `${gap + col * (cubeSize + gap)}px`;
+      cube.style.top = `${gap + row * (cubeSize + gap)}px`;
       cube.textContent = index + 1; // Number the cubes
     });
   }
@@ -64,16 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cubeRect = currentCube.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
     
-    if (
-      cubeRect.left < containerRect.left ||
-      cubeRect.right > containerRect.right ||
-      cubeRect.top < containerRect.top ||
-      cubeRect.bottom > containerRect.bottom
-    ) {
-      // Snap back to initial position
-      currentCube.style.left = `${initialX}px`;
-      currentCube.style.top = `${initialY}px`;
-    }
     
     document.removeEventListener('mousemove', drag);
     document.removeEventListener('mouseup', stopDrag);
